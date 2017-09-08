@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_text">18sp</dimen>
+    <dimen name="primary_text">16sp</dimen>
+    <dimen name="secondary_text">14sp</dimen>
+    <dimen name="ternary_text">12sp</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+    <dimen name="item_height">56dp</dimen>
+
+    <dimen name="padding_left_right">16dp</dimen>
+    <dimen name="padding_height_bottom">8dp</dimen>
+    <dimen name="tab_icon_width">24dp</dimen>
+    <dimen name="tab_icon_height">24dp</dimen>
+
+    <dimen name="account_padding_top_bottom">72dp</dimen>
+    <dimen name="account_padding_left_right">40dp</dimen>
+
+    <dimen name="ic_small_dimen">14dp</dimen>
+    <!--dialog的参数-->
+    <integer name="dialog_button_txt_size">14</integer>
+    <integer name="dialog_title_txt_size">22</integer>
+    <integer name="dialog_input_hint_txt_size">16</integer>
+    <integer name="dialog_margin_abroad">14</integer>
+    <integer name="dialog_margin_top">14</integer>
+</resources>

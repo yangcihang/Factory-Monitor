@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Monitor_Android</string>
+    <string name="text_tab_menu_manager_list">产能管理</string>
+    <string name="text_tab_menu_mine">我的管理</string>
+    <string name="text_tab_menu_procedure">我的工序</string>
+    <string name="dialog_loading">加载中...</string>
+    <string name="title_mine">我的管理</string>
+    <string name="text_exit_login">退出登录</string>
+</resources>
