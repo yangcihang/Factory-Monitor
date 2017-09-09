@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="@dimen/padding_left_right">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right">
+
+        <TextView
+            android:layout_width="@dimen/mine_add_worker_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/primary_text"
+            android:textColor="@color/primary_text"
+            android:text="姓名："/>
+
+        <EditText
+            android:id="@+id/edt_addworker_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_normal_rect"
+            android:textSize="@dimen/primary_text"
+            android:maxLength="4"
+            android:gravity="center"
+            android:hint="输入姓名"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right">
+
+        <TextView
+            android:layout_width="@dimen/mine_add_worker_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/primary_text"
+            android:textColor="@color/primary_text"
+            android:text="职位："/>
+
+        <EditText
+            android:id="@+id/edt_addworker_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_normal_rect"
+            android:textSize="@dimen/primary_text"
+            android:gravity="center"
+            android:hint="输入职位"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="@dimen/mine_add_worker_width"
+            android:layout_height="wrap_content"
+            android:text="工号："
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/primary_text"/>
+
+        <EditText
+            android:id="@+id/edt_addworker_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_normal_rect"
+            android:textSize="@dimen/primary_text"
+            android:gravity="center"
+            android:hint="输入工号（选填）"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/padding_left_right"
+        android:paddingRight="@dimen/padding_left_right">
+
+        <TextView
+            android:layout_width="@dimen/mine_add_worker_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/primary_text"
+            android:textColor="@color/primary_text"
+            android:text="手机号："/>
+
+        <EditText
+            android:id="@+id/edt_addworker_mobile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_normal_rect"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:hint="输入手机号（选填）"
+            android:textSize="@dimen/primary_text"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_addworker_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tab_height"
+        android:background="@drawable/bg_normal_corner"
+        android:layout_marginTop="@dimen/mine_add_worker_width"
+        android:layout_gravity="end"
+        android:textColor="@color/white"
+        android:text="@string/submit"/>
+</LinearLayout>

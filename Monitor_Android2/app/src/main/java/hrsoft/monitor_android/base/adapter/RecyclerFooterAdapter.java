@@ -75,6 +75,16 @@ public abstract class RecyclerFooterAdapter<Data> extends RecyclerView.Adapter<R
     }
 
     /**
+     * 移除数据（带动画）
+     * @param position pos
+     */
+    public void remove(int position) {
+        this.dataList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, dataList.size());
+    }
+
+    /**
      * 清空列表
      */
     public void clear() {

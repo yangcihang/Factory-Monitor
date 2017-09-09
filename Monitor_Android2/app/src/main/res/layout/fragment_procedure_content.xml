@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/bg_background">
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/view_empty"
+        android:visibility="gone"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_procedure_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <hrsoft.monitor_android.widget.SimpleRecyclerView
+            android:id="@+id/rec_procedure_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </hrsoft.monitor_android.widget.SimpleRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

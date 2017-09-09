@@ -1,5 +1,6 @@
 package hrsoft.monitor_android.main;
 
+import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,8 +9,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import hrsoft.monitor_android.R;
 import hrsoft.monitor_android.base.activity.NoBarActivity;
+import hrsoft.monitor_android.common.User;
 import hrsoft.monitor_android.manage.ManageFragment;
 import hrsoft.monitor_android.mine.MineFragment;
+import hrsoft.monitor_android.mine.activity.PersonalActivity;
 import hrsoft.monitor_android.procedure.ProcedureFragment;
 import hrsoft.monitor_android.util.FragmentUtil;
 
@@ -33,7 +36,10 @@ public class MainActivity extends NoBarActivity {
 
     @Override
     protected void initVariable() {
-
+        //登录后获取班组长列表，内容为空则强制其填写班组长信息
+        if (!User.isComplete()) {
+            startActivity(new Intent(this, PersonalActivity.class));
+        }
     }
 
     @Override

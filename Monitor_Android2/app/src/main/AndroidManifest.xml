@@ -21,6 +21,12 @@
         </activity>
         <activity android:name=".account.LoginActivity"/>
         <activity android:name=".main.MainActivity"/>
+        <activity android:name=".mine.activity.PersonalActivity"/>
+        <activity android:name=".mine.activity.WorkerActivity"/>
+        <activity android:name=".mine.activity.AddWorkerActivity"/>
+        <activity android:name=".procedure.activity.ProcedureDetailActivity"/>
+        <activity android:name=".procedure.activity.SchedulingActivity"/>
+        <activity android:name=".procedure.activity.ProcedureAddWorksActivity"/>
     </application>
 
 </manifest>

@@ -57,7 +57,7 @@ public class TimeUtil {
     }
 
     /**
-     * 将字符串转换为时间戳(毫秒级)
+     * 将字符串转换为时间戳
      */
     public static long setStringToStamp(String time, String format) {
         sf = new SimpleDateFormat(format);

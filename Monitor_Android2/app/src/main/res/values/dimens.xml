@@ -17,6 +17,10 @@
     <dimen name="account_padding_left_right">40dp</dimen>
 
     <dimen name="ic_small_dimen">14dp</dimen>
+    <dimen name="mine_personal_width">80dp</dimen>
+    <dimen name="mine_add_worker_width">64dp</dimen>
+    <dimen name="margin_procedure_left_right">24dp</dimen>
+    <dimen name="margin_procedure_item_top_bottom">20dp</dimen>
     <!--dialog的参数-->
     <integer name="dialog_button_txt_size">14</integer>
     <integer name="dialog_title_txt_size">22</integer>

@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/bg_background">
 
-</LinearLayout>
+    <include
+        android:id="@+id/empty"
+        layout="@layout/view_empty"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_dark"
+            android:gravity="center"
+            android:text="@string/title_manager"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text"/>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_manage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <hrsoft.monitor_android.widget.SimpleRecyclerView
+                android:id="@+id/rec_manage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </hrsoft.monitor_android.widget.SimpleRecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+</FrameLayout>

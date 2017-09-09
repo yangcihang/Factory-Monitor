@@ -24,7 +24,9 @@ public class User {
     private static final String KEY_CREATEAT = "KEY_CREATE_AT";
     private static final String KEY_UPDATEDAT = "KEY_UPDATE_AT";
     private static final String KEY_EMAIL = "KEY_EMAIL";
-
+    private static final String KEY_TEAMNAME = "key_teamName";
+    private static final String KEY_DES = "key_des";
+    private static final String KEY_GROUPID = "key_groupId";
 
     private static String token = ""; // 登录状态的Token，用来接口请求
     private static String mobile;// 登录的账户(手机号)
@@ -36,6 +38,10 @@ public class User {
     private static String portrait;//头像url
     private static long createAt; //创建时间
     private static long updatedAt;//更新时间
+    /** 班组信息 */
+    private static String teamName;
+    private static String des;
+    private static Integer groupId;
 
     /**
      * 存储数据到XML文件，持久化
@@ -58,6 +64,22 @@ public class User {
     }
 
     /**
+     * 持久化班组信息
+     */
+    public static void saveTeam(String description, String groupName, int groupId) {
+        SharedPreferences sp = App.getInstance().getSharedPreferences(User.class.getName(),
+                Context.MODE_PRIVATE);
+        sp.edit()
+                .putString(KEY_DES, description)
+                .putString(KEY_TEAMNAME, groupName)
+                .putInt(KEY_GROUPID, groupId)
+                .apply();
+        des = description;
+        teamName = groupName;
+        User.groupId = groupId;
+    }
+
+    /**
      * 进行数据加载
      */
     public static void load(Context context) {
@@ -71,6 +93,9 @@ public class User {
         email = sp.getString(KEY_EMAIL, "");
         createAt = sp.getLong(KEY_CREATEAT, 0);
         updatedAt = sp.getLong(KEY_UPDATEDAT, 0);
+        groupId = sp.getInt(KEY_GROUPID, 0);
+        teamName = sp.getString(KEY_TEAMNAME, "");
+        des = sp.getString(KEY_DES, "");
     }
 
 
@@ -104,7 +129,22 @@ public class User {
         //请空sp之前把静态量清除
         token = "";
         mobile = "";
+        groupId = -1;
+        des = "";
+        teamName = "";
         sp.edit().clear().apply();
+    }
+
+    /**
+     * 班组信息是否完善
+     */
+    public static boolean isComplete() {
+        return !TextUtils.isEmpty(teamName) && !TextUtils.isEmpty(des);
+    }
+
+    public static void setMobile(String mobile) {
+        User.mobile = mobile;
+        User.save(App.getInstance());
     }
 
     /**
@@ -115,15 +155,14 @@ public class User {
         User.save(App.getInstance());
     }
 
-    public static void setMobile(String mobile) {
-        User.mobile = mobile;
-        User.save(App.getInstance());
-    }
-
+    /**
+     * 更改姓名时设置姓名
+     */
     public static void setName(String name) {
         User.name = name;
         User.save(App.getInstance());
     }
+
 
     public static int getId() {
         return id;
@@ -152,5 +191,17 @@ public class User {
 
     public static String getEmail() {
         return email;
+    }
+
+    public static String getTeamName() {
+        return teamName;
+    }
+
+    public static String getDes() {
+        return des;
+    }
+
+    public static Integer getGroupId() {
+        return groupId;
     }
 }

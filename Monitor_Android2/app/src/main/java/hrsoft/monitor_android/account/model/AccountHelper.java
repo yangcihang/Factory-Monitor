@@ -31,4 +31,22 @@ public class AccountHelper {
             }
         }));
     }
+
+    public static void requestGroupMsg(final LoginActivity callback) {
+        NetWork.getService().getGroupMsg().enqueue(new ResponseCallback<GroupModel>(new ResponseCallback.DataCallback() {
+            @Override
+            public void onDataSuccess(Object data) {
+                GroupModel groupModel = (GroupModel) data;
+                if (data != null) {
+                    User.saveTeam(groupModel.getDescription(), groupModel.getName(), groupModel.getId());
+                }
+                callback.onLoadedGroupSuccess();
+            }
+
+            @Override
+            public void onDataFailed(int errorCode) {
+                callback.onLoadedGroupFailed();
+            }
+        }));
+    }
 }

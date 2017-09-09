@@ -43,6 +43,7 @@ public class LoginActivity extends NoBarActivity {
         accountEdit.addTextChangedListener(textWatcher);
         pswEdit.addTextChangedListener(textWatcher);
         loginBtn.setSelected(false);
+        loginBtn.setClickable(false);
     }
 
     @Override
@@ -55,7 +56,6 @@ public class LoginActivity extends NoBarActivity {
      */
     @OnClick(R.id.btn_to_login)
     void toLogin() {
-        // TODO: 17/8/31 登录按钮状态显示
         String account = accountEdit.getText().toString().trim();
         String psw = pswEdit.getText().toString().trim();
         LoginRequest request = new LoginRequest(account, psw);
@@ -67,15 +67,30 @@ public class LoginActivity extends NoBarActivity {
      * 登录成功时
      */
     public void onLoginSuccess() {
-        disMissProgressDialog();
-        this.finish();
-        startActivity(new Intent(this, MainActivity.class));
+        AccountHelper.requestGroupMsg(this);
     }
 
     /**
      * 登录失败时
      */
     public void onLoginFailed() {
+        disMissProgressDialog();
+    }
+
+    /**
+     * 获取班组消息成功时
+     */
+    public void onLoadedGroupSuccess() {
+        disMissProgressDialog();
+        this.finish();
+        startActivity(new Intent(this, MainActivity.class));
+
+    }
+
+    /**
+     * 获取班组信息失败
+     */
+    public void onLoadedGroupFailed() {
         disMissProgressDialog();
     }
 
