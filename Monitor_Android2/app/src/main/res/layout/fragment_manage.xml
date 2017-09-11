@@ -26,7 +26,8 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_manage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <hrsoft.monitor_android.widget.SimpleRecyclerView
                 android:id="@+id/rec_manage"
@@ -36,5 +37,15 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="48dp"
+        android:layout_marginRight="48dp"/>
 
 </FrameLayout>

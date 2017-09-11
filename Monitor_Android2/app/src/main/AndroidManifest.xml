@@ -27,6 +27,9 @@
         <activity android:name=".procedure.activity.ProcedureDetailActivity"/>
         <activity android:name=".procedure.activity.SchedulingActivity"/>
         <activity android:name=".procedure.activity.ProcedureAddWorksActivity"/>
+        <activity android:name=".manage.activity.RecordActivity"/>
+        <activity android:name=".manage.activity.WorkersActivity"/>
+        <activity android:name=".manage.activity.ProcedureListActivity"/>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import hrsoft.monitor_android.util.Utility;
 
 /**
  * @author YangCihang
@@ -102,9 +103,15 @@ public abstract class BaseFragment extends Fragment {
      * 取消ProgressDialog
      */
     protected void disMissProgressDialog() {
-        if (!getActivity().isDestroyed() && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
+        Utility.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!getActivity().isDestroyed() && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }
+        }, 300);
+
     }
 
     /**

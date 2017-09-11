@@ -2,26 +2,31 @@ package hrsoft.monitor_android.procedure.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import hrsoft.monitor_android.App;
 import hrsoft.monitor_android.R;
 import hrsoft.monitor_android.base.activity.ToolbarActivity;
 import hrsoft.monitor_android.common.KeyValue;
 import hrsoft.monitor_android.common.User;
 import hrsoft.monitor_android.mine.model.WorkerModel;
-import hrsoft.monitor_android.procedure.adapter.ProcedureWorksListAdapter;
+import hrsoft.monitor_android.procedure.adapter.ProcedureWorkersListAdapter;
 import hrsoft.monitor_android.procedure.model.DeleteProcedureWorkersRequest;
 import hrsoft.monitor_android.procedure.model.ProcedureHelper;
 import hrsoft.monitor_android.procedure.model.ProcedureModel;
 import hrsoft.monitor_android.util.DialogUtils;
 import hrsoft.monitor_android.util.TimeUtil;
+import hrsoft.monitor_android.util.ToastUtil;
+import hrsoft.monitor_android.util.Utility;
 
 
 /**
@@ -43,7 +48,7 @@ public class SchedulingActivity extends ToolbarActivity {
     @BindView(R.id.rec_procedure_workers_list) RecyclerView workersRec;
 
     private ProcedureModel procedureModel;
-    private ProcedureWorksListAdapter adapter;
+    private ProcedureWorkersListAdapter adapter;
 
     public static void start(Context context, ProcedureModel model) {
         Intent intent = new Intent(context, SchedulingActivity.class);
@@ -70,6 +75,14 @@ public class SchedulingActivity extends ToolbarActivity {
 
     @Override
     protected void loadData() {
+    }
+
+    /**
+     * 保证添加后可以及时看到
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
         showProgressDialog(R.string.dialog_loading);
         ProcedureHelper.requestProcedureWorkers(String.valueOf(procedureModel.getId()),
                 String.valueOf(User.getGroupId()), this);
@@ -80,11 +93,11 @@ public class SchedulingActivity extends ToolbarActivity {
      */
     @OnClick(R.id.btn_procedure_add_worker)
     void addWorker() {
-        startActivity(new Intent(this, ProcedureAddWorksActivity.class));
+        ProcedureAddWorksActivity.start(this, (ArrayList<WorkerModel>) adapter.getListData(), procedureModel.getId());
     }
 
     /**
-     * 加载工人列表
+     * 加载工人列表成功
      */
     public void onDataLoadedSuccess(List<WorkerModel> response) {
         disMissProgressDialog();
@@ -101,8 +114,17 @@ public class SchedulingActivity extends ToolbarActivity {
     /**
      * 删除工人成功
      */
-    public void onDeleteWorkerSuccess() {
+    public void onDeleteWorkerSuccess(int pos) {
         disMissProgressDialog();
+        ToastUtil.showToast(R.string.toast_delete_success);
+        adapter.remove(pos);
+        Utility.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        }, 1000);
+
     }
 
     /**
@@ -150,11 +172,12 @@ public class SchedulingActivity extends ToolbarActivity {
      * 初始化工人列表的信息
      */
     private void initListView() {
-        adapter = new ProcedureWorksListAdapter(this);
+        adapter = new ProcedureWorkersListAdapter(this);
         workersRec.setAdapter(adapter);
-        adapter.setOnDeletedWorkerListener(new ProcedureWorksListAdapter.DeleteWorker() {
+        workersRec.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setOnDeletedWorkerListener(new ProcedureWorkersListAdapter.DeleteWorker() {
             @Override
-            public void onWorkerDelete(final WorkerModel workerModel, int pos) {
+            public void onWorkerDelete(final WorkerModel workerModel, final int pos) {
                 new DialogUtils(SchedulingActivity.this)
                         .setCancelable(false)
                         .setTitleText("确认要删除吗？")
@@ -165,7 +188,7 @@ public class SchedulingActivity extends ToolbarActivity {
                                 DeleteProcedureWorkersRequest request = new DeleteProcedureWorkersRequest();
                                 request.setProcedureId(procedureModel.getId());
                                 request.setWorkerId(workerModel.getId());
-                                ProcedureHelper.deleteProcedureWorkers(request, SchedulingActivity.this);
+                                ProcedureHelper.deleteProcedureWorkers(request, pos, SchedulingActivity.this);
                             }
                         })
                         .setNegativeButton(null)

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,7 +53,6 @@ public class ProcedureDetailActivity extends ToolbarActivity {
     @BindView(R.id.rec_detail_procedure_list) RecyclerView procedureListRec;
     private ProcedureModel procedureModel;
     private ProcedureDetailAdapter adapter;
-
     /**
      * 静态启动
      */
@@ -100,8 +100,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
      */
     private void initList() {
         adapter = new ProcedureDetailAdapter(this);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
-        procedureListRec.setLayoutManager(layoutManager);
+        procedureListRec.setLayoutManager(new LinearLayoutManager(this));
         procedureListRec.setNestedScrollingEnabled(false);
         procedureListRec.setAdapter(adapter);
         procedureListRec.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

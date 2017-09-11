@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public abstract class RecyclerViewAdapter<Data> extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder<Data>> {
 
-    private List<Data> dataList;
+    protected List<Data> dataList;
     protected Context context;
     protected LayoutInflater inflater;
     private OnItemClicked<Data> onItemClickedListener;
@@ -69,6 +69,17 @@ public abstract class RecyclerViewAdapter<Data> extends RecyclerView.Adapter<Rec
     public void remove(Data data) {
         this.dataList.remove(data);
         notifyDataSetChanged();
+    }
+
+    /**
+     * 移除数据（带动画）
+     *
+     * @param position pos
+     */
+    public void remove(int position) {
+        this.dataList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, dataList.size());
     }
 
     /**

@@ -7,6 +7,9 @@ import hrsoft.monitor_android.account.model.GroupModel;
 import hrsoft.monitor_android.account.model.LoginRequest;
 import hrsoft.monitor_android.account.model.LoginResponse;
 import hrsoft.monitor_android.manage.model.RecordListResponse;
+import hrsoft.monitor_android.manage.model.RecordModel;
+import hrsoft.monitor_android.mine.model.MobileModel;
+import hrsoft.monitor_android.mine.model.PasswordModel;
 import hrsoft.monitor_android.mine.model.WorkerListResponse;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 import hrsoft.monitor_android.procedure.model.DeleteProcedureWorkersRequest;
@@ -24,6 +27,9 @@ import retrofit2.http.Query;
 
 
 public interface RemoteService {
+    /**
+     * 登录
+     */
     @POST("user/login")
     Call<RspModel<LoginResponse>> login(@Body LoginRequest request);
 
@@ -49,13 +55,19 @@ public interface RemoteService {
      * 获取记录列表
      */
     @GET("group/log/{groupId}")
-    Call<RspModel<RecordListResponse>> requestManageList(@Path("groupId") String groupId, @Query("page") String page, @Query("size") String size);
+    Call<RspModel<RecordListResponse>> requestManageList(
+            @Path("groupId") String groupId
+            , @Query("page") String page
+            , @Query("size") String size);
 
     /**
      * 获取工人列表
      */
     @GET("group/worker")
-    Call<RspModel<WorkerListResponse>> requestWorkerList(@Query("page") String page, @Query("size") String size, @Query("groupId") String groupId);
+    Call<RspModel<WorkerListResponse>> requestWorkerList(
+            @Query("page") String page
+            , @Query("size") String size
+            , @Query("groupId") String groupId);
 
     /**
      * 添加班组成员
@@ -95,8 +107,9 @@ public interface RemoteService {
      * 获取工序中班组信息
      */
     @GET("group/worker/procedure")
-    Call<RspModel<List<WorkerModel>>> requestProcedureWorkersList(@Query("procedureId") String procedureId,
-                                                                  @Query("groupId") String groupId);
+    Call<RspModel<List<WorkerModel>>> requestProcedureWorkersList(
+            @Query("procedureId") String procedureId
+            , @Query("groupId") String groupId);
 
     @POST("group/worker/schedule")
     Call<RspModel> scheduleWorkers(@Body ProcedureScheduleRequest request);
@@ -104,6 +117,37 @@ public interface RemoteService {
     /**
      * 删除员工信息
      */
-    @DELETE("group/worker/schedule")
+    @PUT("group/schedule")
     Call<RspModel> deleteScheduleWorkers(@Body DeleteProcedureWorkersRequest request);
+
+    /**
+     * 计件
+     */
+    @POST("group/log")
+    Call<RspModel> addRecord(@Body RecordModel recordModel);
+
+    /**
+     * 修改计件
+     */
+    @PUT("group/log/{logId}")
+    Call<RspModel> changedRecord(@Body RecordModel recordModel, @Path("logId") int logId);
+
+    /**
+     * 删除计件
+     */
+    @DELETE("group/log/{logId}")
+    Call<RspModel> deleteRecord(@Path("logId") int logId);
+
+    /**
+     * 修改密码
+     */
+    @PUT("user/{id}")
+    Call<RspModel> updateUserPassword(@Path("id") String id, @Body PasswordModel password);
+
+    /**
+     * 修改手机号
+     */
+    @PUT("user/{id}")
+    Call<RspModel> updateUserInfo(@Path("id") String id, @Body MobileModel requestBody);
+
 }

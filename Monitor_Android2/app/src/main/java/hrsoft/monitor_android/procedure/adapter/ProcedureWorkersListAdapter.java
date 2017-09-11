@@ -12,13 +12,15 @@ import hrsoft.monitor_android.base.adapter.RecyclerViewAdapter;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 
 /**
+ * 排班工人信息的列表
+ *
  * @author YangCihang
  * @since 17/9/9.
  * email yangcihang@hrsoft.net
  */
 
-public class ProcedureWorksListAdapter extends RecyclerViewAdapter<WorkerModel> {
-    public ProcedureWorksListAdapter(Context context) {
+public class ProcedureWorkersListAdapter extends RecyclerViewAdapter<WorkerModel> {
+    public ProcedureWorkersListAdapter(Context context) {
         super(context);
     }
 

@@ -17,6 +17,8 @@ import hrsoft.monitor_android.util.RegexUtil;
 import hrsoft.monitor_android.util.ToastUtil;
 
 /**
+ * 添加工人信息
+ *
  * @author YangCihang
  * @since 17/9/8.
  * email yangcihang@hrsoft.net

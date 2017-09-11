@@ -49,7 +49,7 @@ public class RecordListAdapter extends RecyclerFooterAdapter<RecordModel> {
             recordCountTxt.setText(String.valueOf(recordModel.getTotalCount()));
             recordQualifiedTxt.setText(String.valueOf(recordModel.getSuccessCount()));
             timeTxt.setText(recordModel.getCreatedAt());
-            idTxt.setText(String.valueOf(String.valueOf(recordModel.getProcedureId())));
+            idTxt.setText("工序号" + String.valueOf(String.valueOf(recordModel.getProcedureId())));
         }
     }
 }

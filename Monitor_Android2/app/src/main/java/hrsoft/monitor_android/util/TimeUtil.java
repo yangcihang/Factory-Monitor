@@ -78,6 +78,10 @@ public class TimeUtil {
         return currentTimeStamp;
     }
 
+    public static String getCurrentTime() {
+        long currentTimeStamp = System.currentTimeMillis();
+        return setStampToString(currentTimeStamp, DATETIME_DEFAULT_FORMAT);
+    }
     /**
      * 获取当前的年
      *

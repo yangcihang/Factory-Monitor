@@ -52,7 +52,7 @@ public class ProcedureDetailAdapter extends RecyclerViewAdapter<ProcedureRecordM
                         (float) procedureRecordModel.getTotalCount()) * 100);
                 int failedCount = procedureRecordModel.getTotalCount() - procedureRecordModel.getSuccessCount();
                 timeTxt.setText(procedureRecordModel.getCreatedAt());
-                totalTxt.setText(procedureRecordModel.getTotalCount());
+                totalTxt.setText(String.valueOf(procedureRecordModel.getTotalCount()));
                 successPercentTxt.setText(String.valueOf(percent));
                 successCountTxt.setText(String.valueOf(procedureRecordModel.getSuccessCount()));
                 noSuccessCountTxt.setText(String.valueOf(failedCount));

@@ -2,6 +2,7 @@ package hrsoft.monitor_android.mine.model;
 
 import hrsoft.monitor_android.account.model.GroupModel;
 import hrsoft.monitor_android.common.User;
+import hrsoft.monitor_android.mine.MineFragment;
 import hrsoft.monitor_android.mine.activity.AddWorkerActivity;
 import hrsoft.monitor_android.mine.activity.PersonalActivity;
 import hrsoft.monitor_android.mine.activity.WorkerActivity;
@@ -118,4 +119,41 @@ public class MineHelper {
                     }
                 }));
     }
+
+    public static void updatePassword(String password, final MineFragment callback) {
+        PasswordModel model = new PasswordModel();
+        model.setPassword(password);
+        NetWork.getService().updateUserPassword(String.valueOf(User.getId()), model).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+            @Override
+            public void onDataSuccess(Object data) {
+                callback.onUpdatePasswordSuccess();
+            }
+
+            @Override
+            public void onDataFailed(int errorCode) {
+                //失败时基类处理
+                callback.onUpdatePasswordFailed();
+            }
+        }));
+    }
+
+    /**
+     * 更新手机号
+     */
+    public static void updateMobile(String mobile, final MineFragment callback) {
+        MobileModel requestBody = new MobileModel();
+        requestBody.setMobile(mobile);
+        NetWork.getService().updateUserInfo(String.valueOf(User.getId()), requestBody).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+            @Override
+            public void onDataSuccess(Object data) {
+                callback.onUpadateMobileSuccess();
+            }
+
+            @Override
+            public void onDataFailed(int errorCode) {
+                callback.onUpdateMobileFailed();
+            }
+        }));
+    }
+
 }

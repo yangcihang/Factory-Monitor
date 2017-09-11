@@ -20,6 +20,8 @@ public class RecordModel implements Serializable {
 //             "add_on": null,
 //             "created_at": "2017-09-01 08:38:43",
 //             "updated_at": "2017-09-01 08:38:43"
+
+    private Integer id;
     private int procedureId;
     private String startTime;
     private String endTime;
@@ -129,4 +131,12 @@ public class RecordModel implements Serializable {
     }
 
     private String updatedAt;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
 }

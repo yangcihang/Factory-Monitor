@@ -23,4 +23,18 @@
     <string name="title_procedure_unstart">未开始</string>
     <string name="text_change_schedule">修改排班信息</string>
     <string name="text_to_schedule">去排班</string>
+    <string name="text_worker_empty">暂无工人信息</string>
+    <string name="toast_record_procedure_empty">请选择工序</string>
+    <string name="title_toolbar_worker_detail">工人详情</string>
+    <string name="toast_record_success_count_empty">请输入合格品</string>
+    <string name="toast_record_total_count_empty">请输入总产量</string>
+    <string name="toast_add_record_success">添加记录成功</string>
+    <string name="toast_change_record_success">修改记录成功</string>
+    <string name="toast_delete_record_success">删除记录成功</string>
+    <string name="text_record_current_label">当前时间：</string>
+    <string name="text_record_changed_time">记录时间：</string>
+    <string name="text_delete">删除</string>
+    <string name="toast_password_error">请输入6-20位密码</string>
+    <string name="text_title_dialog_update_password">修改密码</string>
+    <string name="text_title_dialog_change_mobile">修改手机号</string>
 </resources>

@@ -44,7 +44,7 @@ public class MainActivity extends NoBarActivity {
 
     @Override
     protected void initView() {
-        onProcedureClicked();
+        onManagerClicked();
     }
 
     @Override

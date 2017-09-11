@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/item_height"
+              android:background="@drawable/bg_normal_rect"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingEnd="@dimen/padding_left_right"
+              android:paddingStart="@dimen/padding_left_right">
+
+    <TextView
+        android:id="@+id/item_worker_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="刘一"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/primary_text"/>
+
+    <android.support.v4.widget.Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <CheckBox
+        android:id="@+id/item_worker_check"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="@dimen/padding_height_bottom"/>
+</LinearLayout>

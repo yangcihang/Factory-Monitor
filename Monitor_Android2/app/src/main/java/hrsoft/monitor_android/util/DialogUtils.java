@@ -72,6 +72,11 @@ public class DialogUtils {
         return this;
     }
 
+    /**
+     * 设置输入框
+     *
+     * @param inputType 输入样式
+     */
     public DialogUtils setInputEditView(int inputType) {
         inputEdit = new AppCompatEditText(mContext);
         editTextViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

@@ -49,7 +49,8 @@
                     android:id="@+id/edit_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_account"/>
+                    android:layout_toRightOf="@id/img_account"
+                    android:inputType="number"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -71,7 +72,8 @@
                     android:id="@+id/edit_psw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/img_psw"/>
+                    android:layout_toRightOf="@id/img_psw"
+                    android:inputType="textPassword"/>
             </RelativeLayout>
 
             <Button

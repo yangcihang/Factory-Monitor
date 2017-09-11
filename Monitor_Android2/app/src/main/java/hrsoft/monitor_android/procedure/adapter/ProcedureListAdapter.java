@@ -66,7 +66,7 @@ public class ProcedureListAdapter extends RecyclerFooterAdapter<ProcedureModel> 
                     TimeUtil.setStampToString(TimeUtil.setStringToStamp(procedureModel.getEndTime(),
                             TimeUtil.DATE_DEFAULT_FORMAT), TimeUtil.DATE_DEFAULT_FORMAT);
 
-            idTxt.setText(String.valueOf(procedureModel.getId()));
+            idTxt.setText("工序号:" + String.valueOf(procedureModel.getId()));
             procedureTitleTxt.setText(procedureModel.getName());
             totalTxt.setText(String.valueOf(procedureModel.getTotalCount()));
             successCountTxt.setText(String.valueOf(procedureModel.getSuccessCount()));

@@ -2,7 +2,11 @@ package hrsoft.monitor_android.procedure.model;
 
 import java.util.List;
 
+import hrsoft.monitor_android.App;
+import hrsoft.monitor_android.common.KeyValue;
 import hrsoft.monitor_android.common.User;
+import hrsoft.monitor_android.mine.activity.WorkerActivity;
+import hrsoft.monitor_android.mine.model.WorkerListResponse;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 import hrsoft.monitor_android.network.NetWork;
 import hrsoft.monitor_android.network.ResponseCallback;
@@ -70,6 +74,24 @@ public class ProcedureHelper {
     }
 
     /**
+     * 请求工人列表
+     */
+    public static void requestWorkerList(String groupId, String page, String size, final ProcedureAddWorksActivity callback) {
+        NetWork.getService().requestWorkerList(page, size, groupId).enqueue(new ResponseCallback<WorkerListResponse>(new ResponseCallback.DataCallback() {
+            @Override
+            public void onDataSuccess(Object data) {
+                WorkerListResponse response = (WorkerListResponse) data;
+                callback.onDataLoadedSuccess(response.getRecord(), response.getCount());
+            }
+
+            @Override
+            public void onDataFailed(int errorCode) {
+                callback.onDataLoadedFailed();
+            }
+        }));
+    }
+
+    /**
      * 工人排班
      */
     public static void scheduleWorkers(ProcedureScheduleRequest request, ProcedureAddWorksActivity callback) {
@@ -86,11 +108,11 @@ public class ProcedureHelper {
         }));
     }
 
-    public static void deleteProcedureWorkers(DeleteProcedureWorkersRequest request, final SchedulingActivity callback) {
+    public static void deleteProcedureWorkers(DeleteProcedureWorkersRequest request, final int pos, final SchedulingActivity callback) {
         NetWork.getService().deleteScheduleWorkers(request).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
             @Override
             public void onDataSuccess(Object data) {
-                callback.onDeleteWorkerSuccess();
+                callback.onDeleteWorkerSuccess(pos);
             }
 
             @Override
