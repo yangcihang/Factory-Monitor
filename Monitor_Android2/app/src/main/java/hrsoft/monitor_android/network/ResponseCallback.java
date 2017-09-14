@@ -33,7 +33,11 @@ public class ResponseCallback<T> implements Callback<RspModel<T>> {
         //前两句在Converter中已判断，在次做二次判断,所以以下的else都在failure中执行
         if (response.raw().code() <= HttpStateCode.REQUEST_SUCCESS) {
             onDataCallback.onDataSuccess(response.body().getData());
-
+        } else if (response.code() == RspCode.ERROR_SERVICE) {
+            ToastUtil.showToast(R.string.toast_service_error);
+            onDataCallback.onDataFailed(-1);
+        } else {
+            onDataCallback.onDataFailed(-1);
         }
     }
 
@@ -52,7 +56,6 @@ public class ResponseCallback<T> implements Callback<RspModel<T>> {
             }
             onDataCallback.onDataFailed(((ResultException) t).getCode());
         } else if (t instanceof ConnectException) {
-            // TODO: 17/8/21 网络连接错误,前者的toast做测试开发用
             ToastUtil.showToast(R.string.toast_net_work_error);
             onDataCallback.onDataFailed(-1);
         } else {

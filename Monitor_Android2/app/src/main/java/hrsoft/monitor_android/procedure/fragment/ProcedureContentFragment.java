@@ -150,6 +150,10 @@ public class ProcedureContentFragment extends BaseFragment {
     public void onConfirmProcedureSuccess() {
         disMissProgressDialog();
         ToastUtil.showToast("工序完成确认成功");
+        page = 1;
+        isLastPage = false;
+        isFirstLoad = true;
+        getDataSource();
     }
 
     /**
@@ -205,7 +209,7 @@ public class ProcedureContentFragment extends BaseFragment {
             @Override
             public void getProcedure(ProcedureModel model) {
                 showProgressDialog(R.string.dialog_loading);
-                ProcedureHelper.confirmProcedure(ProcedureContentFragment.this);
+                ProcedureHelper.confirmProcedure(model.getId(), ProcedureContentFragment.this);
             }
         });
     }

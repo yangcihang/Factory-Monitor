@@ -119,8 +119,10 @@ public class ProcedureHelper {
         }));
     }
 
-    public static void confirmProcedure(final ProcedureContentFragment callback) {
-        NetWork.getService().confirmProcedure(2).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+    public static void confirmProcedure(int procedureId, final ProcedureContentFragment callback) {
+        ProcedureModel requestBody = new ProcedureModel();
+        requestBody.setStatus(2);
+        NetWork.getService().confirmProcedure(procedureId, requestBody).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
             @Override
             public void onDataSuccess(Object data) {
                 callback.onConfirmProcedureSuccess();

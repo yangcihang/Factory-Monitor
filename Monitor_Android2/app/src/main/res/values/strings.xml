@@ -9,7 +9,7 @@
     <string name="text_mine_item_account">班组信息</string>
     <string name="toast_group_info_empty">请完善班组信息并提交</string>
     <string name="toast_change_success">修改成功</string>
-    <string name="title_manager">产能管理</string>
+    <string name="title_manager">产能记录</string>
     <string name="text_mine_item_mobile">更改手机号</string>
     <string name="text_mine_item_password">更改密码</string>
     <string name="text_mine_item_worker">工人信息管理</string>
@@ -44,4 +44,5 @@
     <string name="toast_net_work_error">网络错误</string>
     <string name="toast_unknow_error">未知错误</string>
     <string name="toast_operation_success">操作成功</string>
+    <string name="toast_service_error">服务器错误</string>
 </resources>

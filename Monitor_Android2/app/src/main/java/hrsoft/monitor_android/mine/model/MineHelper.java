@@ -56,7 +56,7 @@ public class MineHelper {
      * 更新班组信息
      */
     public static void updateGroupInfo(final GroupModel groupModel, final PersonalActivity callback) {
-        NetWork.getService().updateGroup(groupModel).enqueue(new ResponseCallback<>(new ResponseCallback.DataCallback() {
+        NetWork.getService().updateGroup(groupModel).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
             @Override
             public void onDataSuccess(Object data) {
                 User.saveTeam(groupModel.getDescription(), groupModel.getName(), User.getGroupId());

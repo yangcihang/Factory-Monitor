@@ -159,14 +159,14 @@ public class RecordActivity extends ToolbarActivity {
                         } else {
                             final RecordModel requestModel = new RecordModel();
                             requestModel.setProcedureId(procedureModel.getId());
-                            requestModel.setCreatedAt(TimeUtil.getCurrentTime());
                             requestModel.setLeaderId(User.getId());
                             requestModel.setWorkGroupId(User.getGroupId());
                             requestModel.setTotalCount(total);
                             requestModel.setSuccessCount(successCount);
                             //requestModel.setEndTime(null);
                             new DialogUtils(RecordActivity.this)
-                                    .setTitleText("确认修改此工序的计件信息吗？")
+                                    .setTitleText("请确认此次记录")
+                                    .setInputHintText("总产量:" + total + "   合格品" + successCount)
                                     .setCancelable(false)
                                     .setNegativeButton(null)
                                     .setPositiveButton(new DialogUtils.OnButtonListener() {

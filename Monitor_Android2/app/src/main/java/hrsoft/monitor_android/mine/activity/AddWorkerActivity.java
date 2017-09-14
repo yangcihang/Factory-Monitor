@@ -89,6 +89,7 @@ public class AddWorkerActivity extends ToolbarActivity {
      * 添加或修改信息成功
      */
     public void onDataLoadedSuccess() {
+        disMissProgressDialog();
         ToastUtil.showToast("操作成功");
         this.finish();
     }
@@ -97,6 +98,7 @@ public class AddWorkerActivity extends ToolbarActivity {
      * 添加或修改信息失败
      */
     public void onDataLoadedFailed() {
+        disMissProgressDialog();
     }
 
     /**
@@ -128,6 +130,7 @@ public class AddWorkerActivity extends ToolbarActivity {
                         workerModel.setNo(no);
                     }
                     workerModel.setGroupId(User.getGroupId());
+                    showProgressDialog(R.string.dialog_loading);
                     MineHelper.addWorkerInfo(workerModel, this);
                     break;
                 case TYPE_CHANGE:
@@ -140,6 +143,7 @@ public class AddWorkerActivity extends ToolbarActivity {
                     if (this.workerModel.equals(workerModel)) {
                         this.finish();
                     } else {
+                        showProgressDialog(R.string.dialog_loading);
                         MineHelper.updateWorkerInfo(workerModel, this);
                     }
                     break;

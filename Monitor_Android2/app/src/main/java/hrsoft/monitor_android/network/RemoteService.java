@@ -15,6 +15,7 @@ import hrsoft.monitor_android.mine.model.WorkerListResponse;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 import hrsoft.monitor_android.procedure.model.DeleteProcedureWorkersRequest;
 import hrsoft.monitor_android.procedure.model.ProcedureListResponse;
+import hrsoft.monitor_android.procedure.model.ProcedureModel;
 import hrsoft.monitor_android.procedure.model.ProcedureRecordListResponse;
 import hrsoft.monitor_android.procedure.model.ProcedureScheduleRequest;
 import retrofit2.Call;
@@ -152,5 +153,5 @@ public interface RemoteService {
     Call<RspModel> updateUserInfo(@Path("id") String id, @Body MobileModel requestBody);
 
     @PUT("procedure/status/{procedureId}")
-    Call<RspModel> confirmProcedure(@Path("procedureId") int state);
+    Call<RspModel> confirmProcedure(@Path("procedureId") int procedureId, @Body ProcedureModel requestBody);
 }

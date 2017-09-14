@@ -92,7 +92,7 @@ public class ProcedureAddWorksActivity extends ToolbarActivity {
     }
 
     @OnClick(R.id.btn_procedure_add_worker)
-    void onSubmiteWorkers() {
+    void onSubmitWorkers() {
         ProcedureScheduleRequest request = new ProcedureScheduleRequest();
         if (!adapter.getSelectedModels().isEmpty()) {
             request.setWorkerIds(adapter.getSelectedModels());
