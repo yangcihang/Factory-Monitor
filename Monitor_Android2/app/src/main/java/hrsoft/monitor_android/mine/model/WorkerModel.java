@@ -14,7 +14,7 @@ public class WorkerModel implements Serializable {
     private Integer id; //工人id
     private String name;//工人姓名
     private String position;//职位
-    private String no; //工号
+    private String no = ""; //工号
     private String mobile;//手机号
     private int groupId;//
 
@@ -86,6 +86,9 @@ public class WorkerModel implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (TextUtils.isEmpty(mobile)) {
+            return false;
+        }
         WorkerModel model = (WorkerModel) obj;
         return name.equals(model.getName())
                 && id.equals(model.getId())

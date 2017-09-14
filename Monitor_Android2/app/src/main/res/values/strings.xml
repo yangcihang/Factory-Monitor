@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Monitor_Android</string>
+    <string name="app_name">班组长端</string>
     <string name="text_tab_menu_manager_list">产能管理</string>
     <string name="text_tab_menu_mine">我的管理</string>
     <string name="text_tab_menu_procedure">我的工序</string>
-    <string name="dialog_loading">加载中...</string>
+    <string name="dialog_loading">加载中…</string>
     <string name="title_mine">我的管理</string>
     <string name="text_exit_login">退出登录</string>
     <string name="text_mine_item_account">班组信息</string>
@@ -31,10 +31,17 @@
     <string name="toast_add_record_success">添加记录成功</string>
     <string name="toast_change_record_success">修改记录成功</string>
     <string name="toast_delete_record_success">删除记录成功</string>
-    <string name="text_record_current_label">当前时间：</string>
-    <string name="text_record_changed_time">记录时间：</string>
+    <string name="text_record_current_label">当前时间  </string>
+    <string name="text_record_changed_time">记录时间  </string>
     <string name="text_delete">删除</string>
-    <string name="toast_password_error">请输入6-20位密码</string>
+    <string name="toast_password_error">请输入6–20位密码</string>
     <string name="text_title_dialog_update_password">修改密码</string>
     <string name="text_title_dialog_change_mobile">修改手机号</string>
+    <string name="text_dialog_confirm_delete">确认要删除吗？</string>
+    <string name="toast_record_num_error">请输入正确的数量</string>
+    <string name="hint_input_account">请输入账号</string>
+    <string name="hint_input_password">请输入密码</string>
+    <string name="toast_net_work_error">网络错误</string>
+    <string name="toast_unknow_error">未知错误</string>
+    <string name="toast_operation_success">操作成功</string>
 </resources>

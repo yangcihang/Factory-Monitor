@@ -44,6 +44,7 @@ public class WorkersActivity extends ToolbarActivity {
     @Override
     protected void initVariable() {
         adapter = new WorkerListAdapter(this);
+        //noinspection unchecked
         workerModels = (ArrayList<WorkerModel>) getIntent().getSerializableExtra(KeyValue.KEY_WORKER_LIST);
     }
 

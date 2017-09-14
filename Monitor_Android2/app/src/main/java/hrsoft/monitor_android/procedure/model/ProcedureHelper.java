@@ -2,10 +2,7 @@ package hrsoft.monitor_android.procedure.model;
 
 import java.util.List;
 
-import hrsoft.monitor_android.App;
-import hrsoft.monitor_android.common.KeyValue;
 import hrsoft.monitor_android.common.User;
-import hrsoft.monitor_android.mine.activity.WorkerActivity;
 import hrsoft.monitor_android.mine.model.WorkerListResponse;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 import hrsoft.monitor_android.network.NetWork;
@@ -118,6 +115,20 @@ public class ProcedureHelper {
             @Override
             public void onDataFailed(int errorCode) {
                 callback.onDeleteWorkerFailed();
+            }
+        }));
+    }
+
+    public static void confirmProcedure(final ProcedureContentFragment callback) {
+        NetWork.getService().confirmProcedure(2).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+            @Override
+            public void onDataSuccess(Object data) {
+                callback.onConfirmProcedureSuccess();
+            }
+
+            @Override
+            public void onDataFailed(int errorCode) {
+                callback.onConfirmProcedureFailed();
             }
         }));
     }

@@ -40,12 +40,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="48dp"
+        android:src="@drawable/ic_add"
         android:layout_marginRight="48dp"/>
 
 </FrameLayout>

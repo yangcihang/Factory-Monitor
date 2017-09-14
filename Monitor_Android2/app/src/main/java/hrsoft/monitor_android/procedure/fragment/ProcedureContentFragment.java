@@ -145,6 +145,21 @@ public class ProcedureContentFragment extends BaseFragment {
     }
 
     /**
+     * 工序完成确认成功
+     */
+    public void onConfirmProcedureSuccess() {
+        disMissProgressDialog();
+        ToastUtil.showToast("工序完成确认成功");
+    }
+
+    /**
+     * 工序完成确认失败
+     */
+    public void onConfirmProcedureFailed() {
+        disMissProgressDialog();
+    }
+
+    /**
      * 初始化列表变量
      */
     private void initListVariable() {
@@ -182,8 +197,15 @@ public class ProcedureContentFragment extends BaseFragment {
         });
         adapter.setOnScheduleClickedListener(new ProcedureListAdapter.OnScheduleClicked() {
             @Override
-            public void onScheduleClicked(ProcedureModel model) {
+            public void getProcedure(ProcedureModel model) {
                 SchedulingActivity.start(getContext(), model);
+            }
+        });
+        adapter.setOnConfirmClickedListener(new ProcedureListAdapter.OnScheduleClicked() {
+            @Override
+            public void getProcedure(ProcedureModel model) {
+                showProgressDialog(R.string.dialog_loading);
+                ProcedureHelper.confirmProcedure(ProcedureContentFragment.this);
             }
         });
     }

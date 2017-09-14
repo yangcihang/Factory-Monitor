@@ -2,11 +2,13 @@ package hrsoft.monitor_android;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import hrsoft.monitor_android.account.LoginActivity;
 import hrsoft.monitor_android.common.User;
 import hrsoft.monitor_android.util.CacheUtil;
 
@@ -89,7 +91,7 @@ public class App extends Application {
     /**
      * 移除Activity
      *
-     * @param activity
+     * @param activity act
      */
     public static void removeActivity(Activity activity) {
         if (activity != null && !activity.isFinishing()) {
@@ -112,7 +114,6 @@ public class App extends Application {
      */
     public void exitApp() {
         removeAllActivity();
-        // TODO: 17/8/25 退出的后续操作
     }
 
     /**
@@ -122,5 +123,8 @@ public class App extends Application {
         // TODO: 17/9/7 退出登录，清除班组信息
         User.exitLogin(this);
         removeAllActivity();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

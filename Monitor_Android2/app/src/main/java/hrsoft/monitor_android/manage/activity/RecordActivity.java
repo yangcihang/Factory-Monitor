@@ -23,6 +23,8 @@ import hrsoft.monitor_android.manage.model.ManageHelper;
 import hrsoft.monitor_android.manage.model.RecordModel;
 import hrsoft.monitor_android.mine.model.WorkerModel;
 import hrsoft.monitor_android.procedure.model.ProcedureModel;
+import hrsoft.monitor_android.util.DialogUtils;
+import hrsoft.monitor_android.util.FloatUtil;
 import hrsoft.monitor_android.util.TimeUtil;
 import hrsoft.monitor_android.util.ToastUtil;
 
@@ -93,7 +95,7 @@ public class RecordActivity extends ToolbarActivity {
                 float total = recordModel.getTotalCount();
                 selectBtn.setVisibility(GONE);//隐藏选择工序的button
                 float success = recordModel.getSuccessCount();
-                float percent = (success / total) * 100;
+                float percent = FloatUtil.getFloat((success / total) * 100, 2);
                 timeLabelTxt.setText(R.string.text_record_changed_time);
                 totalCountEdit.setText(String.valueOf(recordModel.getTotalCount()));
                 qualifiedEdit.setText(String.valueOf(recordModel.getSuccessCount()));
@@ -123,8 +125,17 @@ public class RecordActivity extends ToolbarActivity {
 
     @OnClick(R.id.btn_record_delete)
     void onDeleteRecord() {
-        showProgressDialog(R.string.dialog_loading);
-        ManageHelper.deleteRecord(recordModel.getId(), this);
+        new DialogUtils(this)
+                .setCancelable(false)
+                .setTitleText("确认要删除这条记录吗？")
+                .setNegativeButton(null)
+                .setPositiveButton(new DialogUtils.OnButtonListener() {
+                    @Override
+                    public void onButtonClicked(DialogUtils dialogUtils) {
+                        ManageHelper.deleteRecord(recordModel.getId(), RecordActivity.this);
+                    }
+                })
+                .showAlertDialog();
     }
 
     /**
@@ -143,16 +154,30 @@ public class RecordActivity extends ToolbarActivity {
                     } else {
                         int total = Integer.valueOf(totalCountEdit.getText().toString().trim());
                         int successCount = Integer.valueOf(qualifiedEdit.getText().toString().trim());
-                        RecordModel requestModel = new RecordModel();
-                        requestModel.setProcedureId(procedureModel.getId());
-                        requestModel.setCreatedAt(TimeUtil.getCurrentTime());
-                        requestModel.setLeaderId(User.getId());
-                        requestModel.setWorkGroupId(User.getGroupId());
-                        requestModel.setTotalCount(total);
-                        requestModel.setSuccessCount(successCount);
-                        //requestModel.setEndTime(null);
-                        showProgressDialog(R.string.dialog_loading);
-                        ManageHelper.addRecord(requestModel, this);
+                        if (total < successCount) {
+                            ToastUtil.showToast(R.string.toast_record_num_error);
+                        } else {
+                            final RecordModel requestModel = new RecordModel();
+                            requestModel.setProcedureId(procedureModel.getId());
+                            requestModel.setCreatedAt(TimeUtil.getCurrentTime());
+                            requestModel.setLeaderId(User.getId());
+                            requestModel.setWorkGroupId(User.getGroupId());
+                            requestModel.setTotalCount(total);
+                            requestModel.setSuccessCount(successCount);
+                            //requestModel.setEndTime(null);
+                            new DialogUtils(RecordActivity.this)
+                                    .setTitleText("确认修改此工序的计件信息吗？")
+                                    .setCancelable(false)
+                                    .setNegativeButton(null)
+                                    .setPositiveButton(new DialogUtils.OnButtonListener() {
+                                        @Override
+                                        public void onButtonClicked(DialogUtils dialogUtils) {
+                                            showProgressDialog(R.string.dialog_loading);
+                                            ManageHelper.addRecord(requestModel, RecordActivity.this);
+                                        }
+                                    })
+                                    .showAlertDialog();
+                        }
                     }
                 } else {
                     ToastUtil.showToast(R.string.toast_record_procedure_empty);
@@ -160,11 +185,6 @@ public class RecordActivity extends ToolbarActivity {
                 break;
             case RECORD_CHANGE:
                 if (recordModel != null) {
-//                    "procedureId": 1,
-//                            "leaderId": 1,
-//                            "workGroupId": 4,
-//                            "totalCount": 100,
-//                            "successCount": 100
                     if (TextUtils.isEmpty(totalCountEdit.getText().toString().trim())) {
                         ToastUtil.showToast(R.string.toast_record_total_count_empty);
                     } else if (TextUtils.isEmpty(qualifiedEdit.getText().toString().trim())) {
@@ -172,14 +192,28 @@ public class RecordActivity extends ToolbarActivity {
                     } else {
                         int total = Integer.valueOf(totalCountEdit.getText().toString().trim());
                         int successCount = Integer.valueOf(qualifiedEdit.getText().toString().trim());
-                        RecordModel requestModel = new RecordModel();
-                        requestModel.setProcedureId(recordModel.getProcedureId());
-                        requestModel.setLeaderId(User.getId());
-                        requestModel.setWorkGroupId(User.getGroupId());
-                        requestModel.setTotalCount(total);
-                        requestModel.setSuccessCount(successCount);
-                        showProgressDialog(R.string.dialog_loading);
-                        ManageHelper.changeRecord(requestModel, recordModel.getId(), this);
+                        if (total < successCount) {
+                            ToastUtil.showToast(R.string.toast_record_num_error);
+                        } else {
+                            final RecordModel requestModel = new RecordModel();
+                            requestModel.setProcedureId(recordModel.getProcedureId());
+                            requestModel.setLeaderId(User.getId());
+                            requestModel.setWorkGroupId(User.getGroupId());
+                            requestModel.setTotalCount(total);
+                            requestModel.setSuccessCount(successCount);
+                            new DialogUtils(RecordActivity.this)
+                                    .setTitleText("确认修改此工序的计件信息吗？")
+                                    .setCancelable(false)
+                                    .setNegativeButton(null)
+                                    .setPositiveButton(new DialogUtils.OnButtonListener() {
+                                        @Override
+                                        public void onButtonClicked(DialogUtils dialogUtils) {
+                                            showProgressDialog(R.string.dialog_loading);
+                                            ManageHelper.changeRecord(requestModel, recordModel.getId(), RecordActivity.this);
+                                        }
+                                    })
+                                    .showAlertDialog();
+                        }
                     }
 
                 }

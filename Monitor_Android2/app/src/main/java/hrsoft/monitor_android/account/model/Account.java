@@ -8,12 +8,22 @@ package hrsoft.monitor_android.account.model;
  */
 
 public class Account {
+    public static final String LEADER = "leader";
     private String token; // 登录状态的Token，用来接口请求
     private String mobile;// 登录的账户(手机号)
     private int sex; //用户性别
     private int id; //用户id
     private String password;
     private String name; // 用户昵称
+    private String role;
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
 
     public void setPassword(String password) {
         this.password = password;

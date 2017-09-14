@@ -99,34 +99,43 @@ public class AddWorkerActivity extends ToolbarActivity {
     public void onDataLoadedFailed() {
     }
 
+    /**
+     * 添加（修改）工人信息
+     */
     @OnClick(R.id.btn_addworker_submit)
     public void onViewClicked() {
         String name = nameEdit.getText().toString().trim();
         String position = positionEdit.getText().toString().trim();
         String no = noEdit.getText().toString().trim();
         String mobile = mobileEdit.getText().toString().trim();
-        if (!RegexUtil.checkMobile(mobile)) {
+        if (!TextUtils.isEmpty(mobile) && !RegexUtil.checkMobile(mobile)) {
             ToastUtil.showToast(R.string.toast_mobile_error);
         } else if (TextUtils.isEmpty(name)) {
             ToastUtil.showToast(R.string.toast_name_empty);
         } else if (TextUtils.isEmpty(position)) {
             ToastUtil.showToast("请输入职称");
-        } else if (TextUtils.isEmpty(no)) {
-            ToastUtil.showToast("请输入工号");
         } else {
             WorkerModel workerModel;
             switch (type) {
                 case TYPE_ADD:
                     workerModel = new WorkerModel();
-                    workerModel.setMobile(mobile);
+                    if (!TextUtils.isEmpty(mobile)) {
+                        workerModel.setMobile(mobile);
+                    }
                     workerModel.setName(name);
                     workerModel.setPosition(position);
-                    workerModel.setNo(no);
+                    if (!TextUtils.isEmpty(no)) {
+                        workerModel.setNo(no);
+                    }
                     workerModel.setGroupId(User.getGroupId());
                     MineHelper.addWorkerInfo(workerModel, this);
                     break;
                 case TYPE_CHANGE:
-                    workerModel = new WorkerModel(this.workerModel.getId(), name, position, no, mobile);
+                    if (TextUtils.isEmpty(mobile)) {
+                        workerModel = new WorkerModel(this.workerModel.getId(), name, position, no, null);
+                    } else {
+                        workerModel = new WorkerModel(this.workerModel.getId(), name, position, no, mobile);
+                    }
                     workerModel.setGroupId(User.getGroupId());
                     if (this.workerModel.equals(workerModel)) {
                         this.finish();

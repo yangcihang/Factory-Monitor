@@ -67,8 +67,7 @@ public class User {
      * 持久化班组信息
      */
     public static void saveTeam(String description, String groupName, int groupId) {
-        SharedPreferences sp = App.getInstance().getSharedPreferences(User.class.getName(),
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = App.getInstance().getSharedPreferences(User.class.getName(), Context.MODE_PRIVATE);
         sp.edit()
                 .putString(KEY_DES, description)
                 .putString(KEY_TEAMNAME, groupName)

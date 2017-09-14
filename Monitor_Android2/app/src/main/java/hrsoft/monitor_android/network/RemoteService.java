@@ -6,6 +6,7 @@ import java.util.List;
 import hrsoft.monitor_android.account.model.GroupModel;
 import hrsoft.monitor_android.account.model.LoginRequest;
 import hrsoft.monitor_android.account.model.LoginResponse;
+import hrsoft.monitor_android.manage.model.CreateGroupResponse;
 import hrsoft.monitor_android.manage.model.RecordListResponse;
 import hrsoft.monitor_android.manage.model.RecordModel;
 import hrsoft.monitor_android.mine.model.MobileModel;
@@ -43,7 +44,7 @@ public interface RemoteService {
      * 创建班组信息
      */
     @POST("group/create")
-    Call<RspModel<Integer>> createGroup(@Body GroupModel model);
+    Call<CreateGroupResponse> createGroup(@Body GroupModel model);
 
     /**
      * 更新班组信息
@@ -150,4 +151,6 @@ public interface RemoteService {
     @PUT("user/{id}")
     Call<RspModel> updateUserInfo(@Path("id") String id, @Body MobileModel requestBody);
 
+    @PUT("procedure/status/{procedureId}")
+    Call<RspModel> confirmProcedure(@Path("procedureId") int state);
 }

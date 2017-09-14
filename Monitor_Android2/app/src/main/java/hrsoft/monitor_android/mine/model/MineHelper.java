@@ -2,12 +2,19 @@ package hrsoft.monitor_android.mine.model;
 
 import hrsoft.monitor_android.account.model.GroupModel;
 import hrsoft.monitor_android.common.User;
+import hrsoft.monitor_android.manage.model.CreateGroupResponse;
 import hrsoft.monitor_android.mine.MineFragment;
 import hrsoft.monitor_android.mine.activity.AddWorkerActivity;
 import hrsoft.monitor_android.mine.activity.PersonalActivity;
 import hrsoft.monitor_android.mine.activity.WorkerActivity;
+import hrsoft.monitor_android.network.GlobalAPIErrorHandler;
+import hrsoft.monitor_android.network.HttpStateCode;
 import hrsoft.monitor_android.network.NetWork;
 import hrsoft.monitor_android.network.ResponseCallback;
+import hrsoft.monitor_android.network.RspCode;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author YangCihang
@@ -20,26 +27,36 @@ public class MineHelper {
      * 创建班组信息
      */
     public static void createGroupInfo(final GroupModel groupModel, final PersonalActivity callback) {
-        NetWork.getService().createGroup(groupModel).enqueue(new ResponseCallback<Integer>(new ResponseCallback.DataCallback() {
+        NetWork.getService().createGroup(groupModel).enqueue(new Callback<CreateGroupResponse>() {
             @Override
-            public void onDataSuccess(Object data) {
-                int id = (Integer) data;
-                User.saveTeam(groupModel.getDescription(), groupModel.getName(), id);
-                callback.onDataLoadedSuccess();
+            public void onResponse(Call<CreateGroupResponse> call, Response<CreateGroupResponse> response) {
+                if (response.code() <= HttpStateCode.REQUEST_SUCCESS) {
+                    if (response.body().getCode() == RspCode.SUCCEED) {
+                        int id = response.body().getGroupId();
+                        User.saveTeam(groupModel.getDescription(), groupModel.getName(), id);
+                        callback.onDataLoadedSuccess();
+                    } else {
+                        GlobalAPIErrorHandler.handle(response.body().getCode());
+                        callback.onDataLoadedFailed();
+                    }
+                } else {
+                    GlobalAPIErrorHandler.handle(response.code());
+                    callback.onDataLoadedFailed();
+                }
             }
 
             @Override
-            public void onDataFailed(int errorCode) {
+            public void onFailure(Call<CreateGroupResponse> call, Throwable t) {
                 callback.onDataLoadedFailed();
             }
-        }));
+        });
     }
 
     /**
      * 更新班组信息
      */
     public static void updateGroupInfo(final GroupModel groupModel, final PersonalActivity callback) {
-        NetWork.getService().updateGroup(groupModel).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+        NetWork.getService().updateGroup(groupModel).enqueue(new ResponseCallback<>(new ResponseCallback.DataCallback() {
             @Override
             public void onDataSuccess(Object data) {
                 User.saveTeam(groupModel.getDescription(), groupModel.getName(), User.getGroupId());
@@ -57,11 +74,10 @@ public class MineHelper {
      * 请求工人列表
      */
     public static void requestWorkerList(String groupId, String page, String size, final WorkerActivity callback) {
-        NetWork.getService().requestWorkerList(page, size, groupId).enqueue(new ResponseCallback<WorkerListResponse>(new ResponseCallback.DataCallback() {
+        NetWork.getService().requestWorkerList(page, size, groupId).enqueue(new ResponseCallback<WorkerListResponse>(new ResponseCallback.DataCallback<WorkerListResponse>() {
             @Override
-            public void onDataSuccess(Object data) {
-                WorkerListResponse response = (WorkerListResponse) data;
-                callback.onDataLoadedSuccess(response.getRecord(), response.getCount());
+            public void onDataSuccess(WorkerListResponse data) {
+                callback.onDataLoadedSuccess(data.getRecord(), data.getCount());
             }
 
             @Override

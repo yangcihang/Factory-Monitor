@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import hrsoft.monitor_android.R;
@@ -53,6 +54,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
     @BindView(R.id.rec_detail_procedure_list) RecyclerView procedureListRec;
     private ProcedureModel procedureModel;
     private ProcedureDetailAdapter adapter;
+
     /**
      * 静态启动
      */
@@ -80,7 +82,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
         int percent = (int) ((successNum / totalNum) * 100);
         if (procedureModel != null) {
             classTitleTxt.setText(User.getTeamName());
-            procedureIdTxt.setText("任务号:" + String.valueOf(procedureModel.getId()));
+            procedureIdTxt.setText("工序号:" + String.valueOf(procedureModel.getId()));
             procedureTitleTxt.setText(procedureModel.getName());
             qualityPercentTxt.setText("合格率" + String.valueOf(percent) + "%");
             procedureProgress.setProgress(percent);
@@ -112,11 +114,11 @@ public class ProcedureDetailActivity extends ToolbarActivity {
     private void initChart(ProcedureRecordListResponse response) {
         if (!response.getLogs().isEmpty()) {
             Map<Long, Integer> chartModelMap = formatValue(response.getLogs()); //获取chart的model
-            int xSumCount = 0;//x轴的计数分布
+            int xSumCount = 0;//x轴的计数分布,从0开始
             int maxValue = 0;//y轴最大值(在数据项为1时使用)
             final List<String> xValue = new ArrayList<>();//x轴值
             List<Entry> lineEntries = new ArrayList<>();
-            XAxis xAxis = lineChart.getXAxis();
+            final XAxis xAxis = lineChart.getXAxis();
             YAxis yAxis = lineChart.getAxisLeft();
             for (Object o : chartModelMap.entrySet()) {
                 Map.Entry entry = (Map.Entry) o;
@@ -135,21 +137,22 @@ public class ProcedureDetailActivity extends ToolbarActivity {
             dataSet.setColors(Color.rgb(207, 180, 105));
             LineData lineData = new LineData(dataSet);
             lineData.setValueTextSize(12);
-
             yAxis.setAxisMinimum(0f);
-            xAxis.setAxisMinimum(0f);
-            xAxis.setLabelCount(chartModelMap.size());
+            xAxis.setAxisMinimum(-1f);
+            xAxis.setXOffset(0);
+            xAxis.setAxisMaximum(chartModelMap.size() + 1);
+            xAxis.setLabelCount(chartModelMap.size() + 1);
             xAxis.setDrawGridLines(false);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的位置
             IAxisValueFormatter formatter = new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    if (value >= 0 && value < xValue.size()) {
-                        int i = (int) value % xValue.size();
-                        return xValue.get(i);
-                    } else {
-                        return "";
+                    for (int i = 0; i < xValue.size(); i++) {
+                        if (value == i) {
+                            return xValue.get(i);
+                        }
                     }
+                    return "";
                 }
             };
             xAxis.setValueFormatter(formatter);
@@ -168,7 +171,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
      * 格式化得到的数据源
      */
     private Map<Long, Integer> formatValue(List<ProcedureRecordModel> numModels) {
-        Map<Long, Integer> modelMap = new HashMap<>();
+        Map<Long, Integer> modelMap = new TreeMap<>();
         for (ProcedureRecordModel model : numModels) {
             long timesTamp = TimeUtil.setStringToStamp(model.getCreatedAt(), TimeUtil.TIME_DEFAULT_MONTH);
             if (modelMap.get(timesTamp) != null) {

@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="150dp"
-                android:background="@mipmap/ic_launcher"/>
+                android:background="@drawable/ic_logo"/>
 
             <RelativeLayout
                 android:id="@+id/ll_account"
@@ -35,7 +35,7 @@
                 android:layout_height="48dp"
                 android:layout_below="@id/img_logo"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="50dp">
 
                 <ImageView
                     android:id="@+id/img_account"
@@ -49,8 +49,10 @@
                     android:id="@+id/edit_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/hint_input_account"
                     android:layout_toRightOf="@id/img_account"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:paddingLeft="5dp"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -73,7 +75,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/img_psw"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:hint="@string/hint_input_password"
+                    android:paddingLeft="5dp"/>
             </RelativeLayout>
 
             <Button

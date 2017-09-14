@@ -146,7 +146,7 @@ public class SchedulingActivity extends ToolbarActivity {
                 TimeUtil.setStampToString(TimeUtil.setStringToStamp(procedureModel.getEndTime(),
                         TimeUtil.DATE_DEFAULT_FORMAT), TimeUtil.DATE_DEFAULT_FORMAT);
 
-        idTxt.setText(String.valueOf(procedureModel.getId()));
+        idTxt.setText(String.valueOf("工序号" + procedureModel.getId()));
         procedureTitleTxt.setText(procedureModel.getName());
         totalTxt.setText(String.valueOf(procedureModel.getTotalCount()));
         successCountTxt.setText(String.valueOf(procedureModel.getSuccessCount()));
@@ -174,13 +174,14 @@ public class SchedulingActivity extends ToolbarActivity {
     private void initListView() {
         adapter = new ProcedureWorkersListAdapter(this);
         workersRec.setAdapter(adapter);
+        workersRec.setNestedScrollingEnabled(false);
         workersRec.setLayoutManager(new LinearLayoutManager(this));
         adapter.setOnDeletedWorkerListener(new ProcedureWorkersListAdapter.DeleteWorker() {
             @Override
             public void onWorkerDelete(final WorkerModel workerModel, final int pos) {
                 new DialogUtils(SchedulingActivity.this)
                         .setCancelable(false)
-                        .setTitleText("确认要删除吗？")
+                        .setTitleText(getString(R.string.text_dialog_confirm_delete))
                         .setPositiveButton(new DialogUtils.OnButtonListener() {
                             @Override
                             public void onButtonClicked(DialogUtils dialogUtils) {
@@ -196,4 +197,6 @@ public class SchedulingActivity extends ToolbarActivity {
             }
         });
     }
+
+
 }

@@ -42,7 +42,7 @@ public class WorkerActivity extends ToolbarActivity {
     private WorkListAdapter adapter;
     private RecyclerScrollListener scrollListener;
     private int page = 1;
-    private final static int size = 8;//默认一页8个
+    private final static int size = 15;//默认一页15个
     private boolean isFirstLoad = true; //是否从第一页开始加载
     private boolean isLastPage = false;//是不是最后一页
 
@@ -109,10 +109,11 @@ public class WorkerActivity extends ToolbarActivity {
         }
         if (adapter.getListData().size() == pageSum) {
             isLastPage = true;
+            adapter.setToRefresh(false);
+        } else {
+            adapter.setToRefresh(true);
         }
         workerRefresh.setRefreshing(false);
-        adapter.setToRefresh(false);
-        adapter.setToRefresh(false);
     }
 
     /**

@@ -24,9 +24,14 @@ import static android.view.View.GONE;
 
 public class ProcedureListAdapter extends RecyclerFooterAdapter<ProcedureModel> {
     private OnScheduleClicked onScheduleClickedListener;
+    private OnScheduleClicked onConfirmClickedListener;
 
     public void setOnScheduleClickedListener(OnScheduleClicked onScheduleClickedListener) {
         this.onScheduleClickedListener = onScheduleClickedListener;
+    }
+
+    public void setOnConfirmClickedListener(OnScheduleClicked onConfirmClickedListener) {
+        this.onConfirmClickedListener = onConfirmClickedListener;
     }
 
     public ProcedureListAdapter(Context context) {
@@ -51,6 +56,7 @@ public class ProcedureListAdapter extends RecyclerFooterAdapter<ProcedureModel> 
         @BindView(R.id.txt_procedure_create_time) TextView createTimeTxt;
         @BindView(R.id.txt_procedure_end_time) TextView endTimeTxt;
         @BindView(R.id.btn_scheduling) Button scheduleBtn;
+        @BindView(R.id.btn_confirm_procedure) Button confirmBtn;
 
         public ItemHolder(View itemView) {
             super(itemView);
@@ -73,6 +79,11 @@ public class ProcedureListAdapter extends RecyclerFooterAdapter<ProcedureModel> 
             procedureProgress.setProgress(percent);
             createTimeTxt.setText(createTime);
             endTimeTxt.setText(endTime);
+            if (percent >= 100 && procedureModel.getStatus() == Integer.valueOf(ProcedureModel.TYPE_PROCESSING)) {
+                confirmBtn.setVisibility(View.VISIBLE);
+            } else {
+                confirmBtn.setVisibility(GONE);
+            }
             switch (procedureModel.getStatus()) {
                 case 1://进行中
                     centerTitleTxt.setText("进行中");
@@ -96,14 +107,20 @@ public class ProcedureListAdapter extends RecyclerFooterAdapter<ProcedureModel> 
                 @Override
                 public void onClick(View view) {
                     if (onScheduleClickedListener != null) {
-                        onScheduleClickedListener.onScheduleClicked(procedureModel);
+                        onScheduleClickedListener.getProcedure(procedureModel);
                     }
+                }
+            });
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onConfirmClickedListener.getProcedure(procedureModel);
                 }
             });
         }
     }
 
     public interface OnScheduleClicked {
-        void onScheduleClicked(ProcedureModel model);
+        void getProcedure(ProcedureModel model);
     }
 }

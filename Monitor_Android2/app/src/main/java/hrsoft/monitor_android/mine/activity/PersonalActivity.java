@@ -103,7 +103,7 @@ public class PersonalActivity extends ToolbarActivity {
      */
     public void onDataLoadedSuccess() {
         disMissProgressDialog();
-        ToastUtil.showToast(R.string.toast_change_success);
+        ToastUtil.showToast(R.string.toast_operation_success);
         this.finish();
     }
 

@@ -1,10 +1,11 @@
 package hrsoft.monitor_android.network;
 
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import java.net.ConnectException;
 
+import hrsoft.monitor_android.App;
+import hrsoft.monitor_android.R;
 import hrsoft.monitor_android.network.convert.ResultException;
 import hrsoft.monitor_android.util.ToastUtil;
 import retrofit2.Call;
@@ -22,7 +23,7 @@ import retrofit2.Response;
 public class ResponseCallback<T> implements Callback<RspModel<T>> {
     private DataCallback<T> onDataCallback;
 
-    public ResponseCallback(DataCallback callback) {
+    public ResponseCallback(DataCallback<T> callback) {
         this.onDataCallback = callback;
     }
 
@@ -31,17 +32,8 @@ public class ResponseCallback<T> implements Callback<RspModel<T>> {
     public void onResponse(Call<RspModel<T>> call, Response<RspModel<T>> response) {
         //前两句在Converter中已判断，在次做二次判断,所以以下的else都在failure中执行
         if (response.raw().code() <= HttpStateCode.REQUEST_SUCCESS) {
-            if (response.body().getCode() == RspCode.SUCCEED) {
-                if (onDataCallback != null) {
-                    onDataCallback.onDataSuccess(response.body().getData());
-                }
-            } else {
-                GlobalAPIErrorHandler.handle(response.body().getCode());
-                onDataCallback.onDataFailed(response.body().getCode());
-            }
-        } else {
-            onDataCallback.onDataFailed(response.raw().code());
-            GlobalAPIErrorHandler.handle(response.raw().code());
+            onDataCallback.onDataSuccess(response.body().getData());
+
         }
     }
 
@@ -53,18 +45,18 @@ public class ResponseCallback<T> implements Callback<RspModel<T>> {
             if (TextUtils.isEmpty(((ResultException) t).getMsg())) {
                 GlobalAPIErrorHandler.handle(((ResultException) t).getCode());
             } else {
-                // TODO: 17/8/25 加入token过期的判断
+                if (((ResultException) t).getCode() == RspCode.ERROR_ACCOUNT_LOGIN) {
+                    App.getInstance().exitAccount();
+                }
                 ToastUtil.showToast(((ResultException) t).getMsg(), ((ResultException) t).getCode());
             }
             onDataCallback.onDataFailed(((ResultException) t).getCode());
         } else if (t instanceof ConnectException) {
             // TODO: 17/8/21 网络连接错误,前者的toast做测试开发用
-            ToastUtil.showToast(t.getMessage());
-            //ToastUtil.showToast(R.string.toast_net_work_error);
+            ToastUtil.showToast(R.string.toast_net_work_error);
             onDataCallback.onDataFailed(-1);
         } else {
-            ToastUtil.showToast(t.getMessage());
-            //ToastUtil.showToast(R.string.toast_unknow_error);
+            ToastUtil.showToast(R.string.toast_unknow_error);
             onDataCallback.onDataFailed(-1);
         }
     }

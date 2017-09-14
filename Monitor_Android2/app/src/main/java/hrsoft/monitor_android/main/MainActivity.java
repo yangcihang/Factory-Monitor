@@ -36,10 +36,6 @@ public class MainActivity extends NoBarActivity {
 
     @Override
     protected void initVariable() {
-        //登录后获取班组长列表，内容为空则强制其填写班组长信息
-        if (!User.isComplete()) {
-            startActivity(new Intent(this, PersonalActivity.class));
-        }
     }
 
     @Override
@@ -49,7 +45,10 @@ public class MainActivity extends NoBarActivity {
 
     @Override
     protected void loadData() {
-
+        //登录后获取班组长列表，内容为空则强制其填写班组长信息
+        if (!User.isComplete()) {
+            startActivity(new Intent(this, PersonalActivity.class));
+        }
     }
 
     /**

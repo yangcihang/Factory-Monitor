@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_procedure_left_right"
         android:layout_marginRight="@dimen/margin_procedure_left_right"
         android:layout_marginTop="@dimen/margin_procedure_item_top_bottom"
-        android:paddingBottom="@dimen/margin_procedure_item_top_bottom"
+        android:layout_marginBottom="@dimen/margin_procedure_item_top_bottom"
         app:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/margin_procedure_item_top_bottom"
             android:paddingLeft="@dimen/margin_procedure_left_right"
             android:paddingRight="@dimen/margin_procedure_left_right"
             android:paddingTop="@dimen/margin_procedure_item_top_bottom">

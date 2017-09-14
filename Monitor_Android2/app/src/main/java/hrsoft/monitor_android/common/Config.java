@@ -20,11 +20,13 @@ public final class Config {
     /**
      * APP Server 网络请求BaseUrl
      */
-    public static final String BASE_URL = "http://192.168.1.229:3010/";
+    public static final String BASE_URL = "http://192.168.0.104:3010/";
 
     /**
      * APP Server 网络请求连接超时时间，单位：s
      */
     public static final int APP_SERVER_CONNECT_TIME_OUT = 15;
+
+    public static final int FLAG_ROLE = 0x421245;
 
 }

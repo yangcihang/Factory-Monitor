@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前工序："
+            android:text="当前工序"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/title_text"/>
 
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="完成数："
+            android:text="完成数"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/title_text"/>
 
@@ -56,12 +56,12 @@
             android:id="@+id/edit_record_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_normal_rect"
-            android:gravity="center"
+            android:gravity="center|start"
             android:hint="输入完成总数"
             android:inputType="number"
             android:maxLength="10"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:paddingLeft="8dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="合格品："
+            android:text="合格品"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/title_text"/>
 
@@ -80,12 +80,12 @@
             android:id="@+id/edit_record_qualified"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_normal_rect"
-            android:gravity="center"
+            android:gravity="center|start"
             android:hint="输入合格数"
             android:inputType="number"
             android:maxLength="10"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:paddingLeft="8dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +96,7 @@
         <TextView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="合格率："
+            android:text="合格率"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/title_text"/>
 
@@ -119,7 +119,7 @@
             android:id="@+id/txt_record_time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前时间："
+            android:text="当前时间  "
             android:textColor="@color/primary_text"
             android:textSize="@dimen/primary_text"/>
 
@@ -127,6 +127,7 @@
             android:id="@+id/txt_record_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:gravity="center"
             android:text="08/11 11:26"
             android:textColor="@color/secondary_text"
@@ -142,7 +143,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工人:"
+            android:text="工人  "
             android:textColor="@color/primary_text"
             android:textSize="@dimen/primary_text"
             />

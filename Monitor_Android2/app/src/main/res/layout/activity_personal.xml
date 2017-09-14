@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
+              android:background="@color/bg_background"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:padding="@dimen/padding_left_right">
@@ -26,7 +27,6 @@
             android:layout_weight="1"
             android:background="@drawable/bg_normal_rect"
             android:gravity="center"
-            android:maxLength="4"
             android:textSize="@dimen/primary_text"
             />
     </LinearLayout>

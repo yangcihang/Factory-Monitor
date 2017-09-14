@@ -2,12 +2,15 @@ package hrsoft.monitor_android.mine;
 
 import android.content.Intent;
 import android.text.InputType;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import hrsoft.monitor_android.App;
 import hrsoft.monitor_android.R;
 import hrsoft.monitor_android.account.LoginActivity;
 import hrsoft.monitor_android.base.fragment.BaseFragment;
+import hrsoft.monitor_android.common.User;
 import hrsoft.monitor_android.mine.activity.PersonalActivity;
 import hrsoft.monitor_android.mine.activity.WorkerActivity;
 import hrsoft.monitor_android.mine.model.MineHelper;
@@ -23,6 +26,8 @@ import hrsoft.monitor_android.util.ToastUtil;
  */
 
 public class MineFragment extends BaseFragment {
+    @BindView(R.id.txt_mine_user_name)
+    TextView nameTxt;
 
     @Override
     protected int getLayoutId() {
@@ -36,7 +41,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        nameTxt.setText(User.getName());
     }
 
     @Override

@@ -23,11 +23,10 @@ public class ManageHelper {
      * 请求记录的列表
      */
     public static void requestRecordList(String groupId, String page, String size, final ManageFragment callback) {
-        NetWork.getService().requestManageList(groupId, page, size).enqueue(new ResponseCallback<RecordListResponse>(new ResponseCallback.DataCallback() {
+        NetWork.getService().requestManageList(groupId, page, size).enqueue(new ResponseCallback<RecordListResponse>(new ResponseCallback.DataCallback<RecordListResponse>() {
             @Override
-            public void onDataSuccess(Object data) {
-                RecordListResponse response = (RecordListResponse) data;
-                callback.onDataLoadedSuccess(response.getRecords(), response.getCount());
+            public void onDataSuccess(RecordListResponse data) {
+                callback.onDataLoadedSuccess(data.getRecords(), data.getCount());
             }
 
             @Override
@@ -41,11 +40,10 @@ public class ManageHelper {
      * 获取工序中员工信息
      */
     public static void requestProcedureWorkers(String procedureId, String groupId, final RecordActivity callback) {
-        NetWork.getService().requestProcedureWorkersList(procedureId, groupId).enqueue(new ResponseCallback<List<WorkerModel>>(new ResponseCallback.DataCallback() {
+        NetWork.getService().requestProcedureWorkersList(procedureId, groupId).enqueue(new ResponseCallback<>(new ResponseCallback.DataCallback<List<WorkerModel>>() {
             @Override
-            public void onDataSuccess(Object data) {
-                List<WorkerModel> list = (List<WorkerModel>) data;
-                callback.onWorkersLoadedSuccess(list);
+            public void onDataSuccess(List<WorkerModel> data) {
+                callback.onWorkersLoadedSuccess(data);
             }
 
             @Override
@@ -62,11 +60,10 @@ public class ManageHelper {
         String page = "1";
         String size = "10000";
         NetWork.getService().requestProcedureList(String.valueOf(User.getGroupId()), page, size, ProcedureModel.TYPE_PROCESSING)
-                .enqueue(new ResponseCallback<ProcedureListResponse>(new ResponseCallback.DataCallback() {
+                .enqueue(new ResponseCallback<>(new ResponseCallback.DataCallback<ProcedureListResponse>() {
                     @Override
-                    public void onDataSuccess(Object data) {
-                        ProcedureListResponse response = (ProcedureListResponse) data;
-                        callback.onDataLoadedSuccess(response.getData());
+                    public void onDataSuccess(ProcedureListResponse data) {
+                        callback.onDataLoadedSuccess(data.getData());
                     }
 
                     @Override
@@ -74,13 +71,14 @@ public class ManageHelper {
                         callback.onDataLoadedFailed();
                     }
                 }));
+
     }
 
     /**
      * 添加记录
      */
     public static void addRecord(RecordModel requestModel, final RecordActivity callback) {
-        NetWork.getService().addRecord(requestModel).enqueue(new ResponseCallback(new ResponseCallback.DataCallback() {
+        NetWork.getService().addRecord(requestModel).enqueue(new ResponseCallback<>(new ResponseCallback.DataCallback() {
             @Override
             public void onDataSuccess(Object data) {
                 callback.onAddRecordSuccess();
