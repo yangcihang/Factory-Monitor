@@ -17,7 +17,7 @@ import hrsoft.monitor_android.util.Utility;
  */
 
 public class SplashActivity extends NoBarActivity {
-    private final static long SPLASH_TIME = 1000;
+    private final static long SPLASH_TIME = 2000;
 
     @Override
     protected int getLayoutId() {

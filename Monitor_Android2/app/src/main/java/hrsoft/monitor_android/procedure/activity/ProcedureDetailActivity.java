@@ -125,7 +125,10 @@ public class ProcedureDetailActivity extends ToolbarActivity {
                 Long key = (Long) entry.getKey();
                 Integer value = (Integer) entry.getValue();
                 lineEntries.add(new Entry(xSumCount++, value));
-                xValue.add(TimeUtil.setStampToString(key, TimeUtil.TIME_DEFAULT_MONTH));
+                //时间截取
+                String timeStamp = TimeUtil.setStampToString(key, TimeUtil.TIME_DEFAULT_MONTH);
+                timeStamp = timeStamp.substring(5, timeStamp.length());
+                xValue.add(timeStamp);
                 if (value > maxValue) {
                     maxValue = value;
                     if (chartModelMap.size() == 1)
@@ -141,7 +144,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
             xAxis.setAxisMinimum(-1f);
             xAxis.setXOffset(0);
             xAxis.setAxisMaximum(chartModelMap.size() + 1);
-            xAxis.setLabelCount(chartModelMap.size() + 1);
+//            xAxis.setLabelCount(chartModelMap.size() + 1);
             xAxis.setDrawGridLines(false);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的位置
             IAxisValueFormatter formatter = new IAxisValueFormatter() {
@@ -158,7 +161,7 @@ public class ProcedureDetailActivity extends ToolbarActivity {
             xAxis.setValueFormatter(formatter);
             xAxis.setEnabled(true);
             lineChart.setData(lineData);//装载数据
-            lineChart.setScaleXEnabled(false);
+            lineChart.setScaleXEnabled(true);
             lineChart.getAxisRight().setEnabled(false);
             lineChart.setDescription(null);
             lineChart.animateX(1000);
